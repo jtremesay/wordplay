@@ -64,7 +64,7 @@ class Dictionary:
         word = self.normalize_word(word)
 
         cursor = self.connection.cursor()
-        cursor.execute("DELETE FROM `words` WHERE `word` LIKE ?;", (word,))
+        cursor.execute("DELETE FROM `words` WHERE `word` = ?;", (word,))
         cursor.close()
 
 
@@ -73,7 +73,7 @@ class Dictionary:
         word = self.normalize_word(word)
 
         cursor = self.connection.cursor()
-        cursor.execute("SELECT COUNT(*) FROM `words` WHERE `word` LIKE ?;", (word,))
+        cursor.execute("SELECT COUNT(*) FROM `words` WHERE `word` = ?;", (word,))
         word_exits = cursor.fetchone()[0] > 0
         cursor.close()
 
@@ -109,7 +109,7 @@ class Dictionary:
         ref_word_ordered = "".join(sorted(ref_word))
 
         cursor = self.connection.cursor()
-        cursor.execute("SELECT `word` FROM `words` WHERE `anagram` LIKE ? ORDER BY `word` ASC;", (ref_word_ordered,))
+        cursor.execute("SELECT `word` FROM `words` WHERE `anagram` = ? ORDER BY `word` ASC;", (ref_word_ordered,))
         for line in cursor:
             yield line[0]
 
