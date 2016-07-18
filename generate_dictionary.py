@@ -14,7 +14,7 @@ with open(sys.argv[1], 'r') as input_file:
     d.clear()
 
     for word in input_file:
-        d.add_word(word.replace("\r", "").replace("\n", ""))
+        d.add_word(word.strip())
 
     d.save()
     d.close()
